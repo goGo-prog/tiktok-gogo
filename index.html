@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>GOGO Prank Hacker</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #blackScreen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            opacity: 0.95;
+            z-index: 9999;
+            pointer-events: auto;
+        }
+
+        .disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        #hackerText {
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 2em;
+            text-align: center;
+            margin-top: 40vh;
+            white-space: pre;
+            display: none;
+            animation: blink 10s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.8; }
+        }
+
+        #errorScreen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: red;
+            z-index: 10000;
+            color: white;
+            font-family: monospace;
+            font-size: 2em;
+            text-align: center;
+            padding-top: 40vh;
+            animation: errorFlash 0.1s infinite alternate;
+        }
+
+        @keyframes errorFlash {
+            0% { background-color: #8b0000; }
+            100% { background-color: red; }
+        }
+
+/* Tambahkan di dalam <style> */
+    #finalImage {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    z-index: 10001;
+    animation: finalZoom 2s ease-out forwards;
+}
+
+#finalImage img {
+    max-width: 60vw;
+    max-height: 60vh;
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(255,255,255,0.6);
+}
+
+@keyframes finalZoom {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5) rotate(-30deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <h1>Selamat Datang</h1>
+    <button onclick="alert('Tes tombol')">Tombol Cek</button><br><br>
+    <a href="#" onclick="mulaiPrank()">Klik ini untuk melihat reels menarik dari saya 😁</a>
+
+    <div id="blackScreen">
+        <div id="hackerText"></div>
+    </div>
+
+    <div id="errorScreen">⚠️ SYSTEM BREACH DETECTED ⚠️</div>
+
+    <!-- Tambahkan di dalam <body> (di bawah div lain) -->
+    <div id="finalImage">
+    <img src="GO.jpg" alt="Final" />
+    </div>
+  
+
+    <!-- Suara -->
+    <audio id="keySound" src="https://www.soundjay.com/mechanical/mechanical-keyboard-single-1.mp3" preload="auto"></audio>
+    <audio id="alertSound" src="https://www.myinstants.com/media/sounds/system-breach.mp3" preload="auto"></audio>
+
+    <script>
+        function mulaiPrank() {
+            // Coba masuk ke mode fullscreen (harus dari klik user)
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { // Safari
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { // IE11
+                elem.msRequestFullscreen();
+            }
+
+            jalankanEfek();
+        }
+
+        function jalankanEfek() {
+            const blackScreen = document.getElementById('blackScreen');
+            const hackerText = document.getElementById('hackerText');
+            const keySound = document.getElementById('keySound');
+            const alertSound = document.getElementById('alertSound');
+            const errorScreen = document.getElementById('errorScreen');
+
+            document.body.classList.add('disabled');
+            blackScreen.style.display = 'block';
+
+            const hackerMessage = "GOGO SEDANG MERETAS PONSEL ANDA";
+
+            setTimeout(() => {
+                hackerText.style.display = 'block';
+                let index = 0;
+
+                const typeInterval = setInterval(() => {
+                    if (index < hackerMessage.length) {
+                        hackerText.textContent += hackerMessage.charAt(index);
+                        keySound.currentTime = 0;
+                        keySound.play();
+                        index++;
+                    } else {
+                        clearInterval(typeInterval);
+                    }
+                }, 100);
+            }, 5000);
+
+            setTimeout(() => {
+                alertSound.play();
+                errorScreen.style.display = 'block';
+            }, 10000);
+
+            setTimeout(() => {
+                blackScreen.style.display = 'none';
+                hackerText.style.display = 'none';
+                hackerText.textContent = '';
+                errorScreen.style.display = 'none';
+                document.body.classList.remove('disabled');
+
+                // Keluar dari fullscreen jika masih aktif
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }, 17000);
+            // Tambahkan ini di akhir function jalankanEfek()
+            setTimeout(() => {
+            const finalImage = document.getElementById('finalImage');
+            finalImage.style.display = 'block';
+            }, 17000);
+
+        }
+    </script>
+</body>
+</html>
